@@ -4,7 +4,7 @@
   "description": "First Project NodeJS",
   "main": "index.js",
   "scripts": {
-    "dev" : "nodemon server.js"
+    "dev" : "nodemon app.js"
   },
   "author": "Le Minh Tuan",
   "license": "ISC",

@@ -10,9 +10,9 @@ app.use(bodyParser.json())
 let routes = require('./api/routes') //importing route
 routes(app)
 
-// app.use(function(req, res) {
-//     res.status(404).send({url: req.originalUrl + ' not found'})
-// })
+app.use(function(req, res) {
+    res.status(404).send({url: req.originalUrl + ' not found'})
+})
 
 app.listen(port)
 
