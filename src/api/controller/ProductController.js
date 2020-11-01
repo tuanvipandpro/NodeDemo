@@ -1,14 +1,11 @@
 'use strict'
-
 const ProductService = require('./../service/ProductService')
 
-// Path Variable : Params
-// Parameter : Query
 module.exports = {
     /**
      * Get all product
      */    
-    getAll: async (req, res) => {
+    getAll: (req, res) => {
         ProductService.getAll().then(data => {
             res.status(200).json(data)
         }).catch(err => {

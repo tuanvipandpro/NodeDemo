@@ -1,9 +1,14 @@
 'use strict';
-module.exports = function(app) {
-  const ProductController = require('./controller/ProductController');
 
+const LoginController = require('./controller/LoginController')
+const ProductController = require('./controller/ProductController')
+const JwtUtils = require('./utils/JwtUtils')
+
+module.exports = function(app) {
   // API
-  app.route('/api/products')
+  app
+    .use(JwtUtils.verifyToken)
+    .route('/api/products')
     .get(ProductController.getAll)
 
   app.route('/api/products/:productId')
@@ -11,4 +16,6 @@ module.exports = function(app) {
     .put(ProductController.updateById)
 
   // Auth
-};
+  app.route('/auth/login')
+    .post(LoginController.login)
+}
