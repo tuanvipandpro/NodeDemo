@@ -7,44 +7,46 @@ const db = require('./../db')
 // Path Variable : Params
 // Parameter : Query
 module.exports = {
-    getAll: (req, res) => {
+    /**
+     * Get all product
+     */    
+    getAll: () => {
         const sql = 'SELECT * ' + 
                     'FROM product'
+        
 
         db.query(sql, (err, response) => {
             if (err) throw err
-            res.status(200).json(response)
+            return response
         })
     },
 
-    getById: (req, res) => {
+    /**
+     * Get product by id
+     * @param id
+     */
+    getById: (id) => {
         const sql = 'SELECT * ' +
                     'FROM product ' +
                     'WHERE id = ? '
 
-        const params = [req.params.productId]
-
-        db.query(sql, params,  (err, response) => {
-            if (err) throw err
-            res.status(200).json(response)
+        db.query(sql, id,  (err, response) => {
+            return err ? null : response
         })
     },
 
-    updateById: (req, res) => {
+    /**
+     * Update product by id
+     * @param data
+     * @param id
+     */
+    updateById: (data, id) => {
         const sql = 'UPDATE product ' +
                     'SET ? ' +
                     'WHERE id = ? '
 
-        const data = req.body
-        const id = [req.params.productId]
-
-        console.log(data)
-
         db.query(sql, [data, id],  (err, response) => {
-            if (err) {
-                res.status(500).json({ error: 'Internal Server Error !'})
-            }
-            res.status(200).json({message: 'Success !'})
+            return err ? null : response
         })
     }
 }

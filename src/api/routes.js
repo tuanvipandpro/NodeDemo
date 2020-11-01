@@ -2,7 +2,7 @@
 module.exports = function(app) {
   const ProductController = require('./controller/ProductController');
 
-  app.route('/products')
+  app.route('/api/products')
     .get(ProductController.getAll)
 
     app.route('/products/:productId')
