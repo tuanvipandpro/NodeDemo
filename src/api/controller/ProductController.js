@@ -8,13 +8,12 @@ module.exports = {
     /**
      * Get all product
      */    
-    getAll: (req, res) => {
-        let data =  ProductService.getAll()
-        if (!data) {
-            res.status(404).json(data)
-        } else {
+    getAll: async (req, res) => {
+        ProductService.getAll().then(data => {
             res.status(200).json(data)
-        }
+        }).catch(err => {
+            res.status(500).json(err)
+        })
     },
 
     /**
@@ -22,12 +21,13 @@ module.exports = {
      * @param id
      */
     getById: (req, res) => {
-        let data =  ProductService.getById(req.params.productId)
-        if (!data) {
-            res.status(404).json(data)
-        } else {
+        const id =  req.params.productId
+
+        ProductService.getById(id).then(data => {
             res.status(200).json(data)
-        }
+        }).catch(err => {
+            res.status(500).json(err)
+        })        
     },
 
     /**
@@ -36,11 +36,13 @@ module.exports = {
      * @param id
      */
     updateById: (req, res) => {
+        const body = req.body
+        const id = req.params.productId
         let data =  ProductService.updateById(req.body, req.params.productId)
-        if (!data) {
-            res.status(404).json(data)
-        } else {
-            res.status(200).json(data)
-        }
+        ProductService.updateById(req.body, req.params.productId).then(data => {
+            res.status(200).json({message: 'Successfully !!!'})
+        }).catch(err => {
+            res.status(500).json(err)
+        }) 
     }
 }

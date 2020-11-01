@@ -3,6 +3,9 @@
 const util = require('util')
 const mysql = require('mysql')
 const db = require('./../db')
+// const { resolve } = require('path')
+// const { rejects } = require('assert')
+// const { response } = require('express')
 
 // Path Variable : Params
 // Parameter : Query
@@ -12,13 +15,18 @@ module.exports = {
      */    
     getAll: () => {
         const sql = 'SELECT * ' + 
-                    'FROM product'
-        
-
-        db.query(sql, (err, response) => {
-            if (err) throw err
-            return response
+                    'FROM product';
+        return new Promise((resolve, reject) => {
+            db.query(sql, (error, response) => {
+                if (error) {
+                    reject(error)
+                }
+                else {
+                    resolve(response)
+                }
+            })
         })
+        // End  
     },
 
     /**
@@ -26,13 +34,20 @@ module.exports = {
      * @param id
      */
     getById: (id) => {
-        const sql = 'SELECT * ' +
-                    'FROM product ' +
-                    'WHERE id = ? '
-
-        db.query(sql, id,  (err, response) => {
-            return err ? null : response
+        const sql = 'SELECT * ' + 
+                    'FROM product ' + 
+                    'WHERE id  = ? '
+        return new Promise((resolve, reject) => {
+            db.query(sql, id, (error, response) => {
+                if (error) {
+                    reject(error)
+                }
+                else {
+                    resolve(response)
+                }
+            })
         })
+        // End          
     },
 
     /**
@@ -45,8 +60,16 @@ module.exports = {
                     'SET ? ' +
                     'WHERE id = ? '
 
-        db.query(sql, [data, id],  (err, response) => {
-            return err ? null : response
-        })
+        return new Promise((resolve, reject) => {
+            db.query(sql, [data, id], (error, response) => {
+                if (error) {
+                    reject(error)
+                }
+                else {
+                    resolve(response)
+                }
+            })
+        })  
+        // End       
     }
 }

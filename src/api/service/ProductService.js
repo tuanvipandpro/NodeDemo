@@ -7,8 +7,15 @@ module.exports = {
      * Get all product
      */    
     getAll: () => {
-        console.log(productRepository.getAll())
-        return productRepository.getAll()
+        return new Promise((resolve, reject) => {
+            productRepository.getAll()
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+        })
     },
 
     /**
@@ -16,7 +23,15 @@ module.exports = {
      * @param id
      */
     getById: (id) => {
-        return productRepository.getById(id)
+        return new Promise((resolve, reject) => {
+            productRepository.getById(id)
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+        })
     },
 
     /**
@@ -25,6 +40,14 @@ module.exports = {
      * @param id
      */
     updateById: (data, id) => {
-        return productRepository.updateById(data, id)
+        return new Promise((resolve, reject) => {
+            productRepository.updateById(data, id)
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+        })
     }
 }

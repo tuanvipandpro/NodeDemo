@@ -2,10 +2,13 @@
 module.exports = function(app) {
   const ProductController = require('./controller/ProductController');
 
+  // API
   app.route('/api/products')
     .get(ProductController.getAll)
 
-    app.route('/products/:productId')
+  app.route('/api/products/:productId')
     .get(ProductController.getById)
     .put(ProductController.updateById)
+
+  // Auth
 };
