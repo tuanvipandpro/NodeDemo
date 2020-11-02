@@ -1,12 +1,17 @@
 'use strict'
 const jwt = require('jsonwebtoken')
 
+// JWT Credentials
 const ACCESS_TOKEN_LIFE = '100h'
-const ACCESS_TOKEN_SECRET = 'JLUgkGLgGI5662649lbjLggLjf5+499'
+const ACCESS_TOKEN_SECRET = 'JLUgkGLgGI56df626ghT4+9lbjLggLjf5+49zXCV9a'
+
+// Constant
+const NO_AUTH_URL = ['/auth/login', '/']
 
 module.exports = {
     /**
      * Generate Token 
+     * @param data
      */    
     generateToken: (data) => {
         try {
@@ -19,19 +24,20 @@ module.exports = {
     },
     /**
      * Verify Token
+     * @param req
+     * @param res
+     * @param next
      */  
     verifyToken: (req, res, next) => {
-        if (req.originalUrl.match('/auth/login')) return next()
-        else {
-            if (!req.headers.authorization) res.status(403).json('Forbidden !!!')
-            let token = req.headers.authorization.substring(7)
-            // Verify Token
+        if (NO_AUTH_URL.includes(req.originalUrl)) return next()
+        else {           
             try {
+                let token = req.headers.authorization.substring(7)
                 const isVerify = jwt.verify(token, ACCESS_TOKEN_SECRET, {algorithm: 'HS256', expiresIn: ACCESS_TOKEN_LIFE})
                 return next()
             }
             catch(e) {
-                res.status(403).json('Forbidden !!!')
+                res.status(403).json({message: 'Forbidden !!!'})
             }
         }      
     }
