@@ -20,7 +20,19 @@ module.exports = {
     /**
      * Verify Token
      */  
-    verifyToken: (req, res) => {
-
+    verifyToken: (req, res, next) => {
+        if (req.originalUrl.match('/auth/login')) return next()
+        else {
+            if (!req.headers.authorization) res.status(403).json('Forbidden !!!')
+            let token = req.headers.authorization.substring(7)
+            // Verify Token
+            try {
+                const isVerify = jwt.verify(token, ACCESS_TOKEN_SECRET, {algorithm: 'HS256', expiresIn: ACCESS_TOKEN_LIFE})
+                return next()
+            }
+            catch(e) {
+                res.status(403).json('Forbidden !!!')
+            }
+        }      
     }
 }

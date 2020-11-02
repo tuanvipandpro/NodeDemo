@@ -13,7 +13,6 @@ module.exports = {
         const body = req.body
 
         loginService.login(body.username, body.password).then(data => {
-            
             res.status(data.statusCode).json(data)
         }).catch(err => {
             if (err === null) res.status(403).json({message: 'Username or password is incorrect !!!'})

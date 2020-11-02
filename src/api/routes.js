@@ -2,12 +2,10 @@
 
 const LoginController = require('./controller/LoginController')
 const ProductController = require('./controller/ProductController')
-const JwtUtils = require('./utils/JwtUtils')
 
-module.exports = function(app) {
+module.exports = function(app) {  
   // API
   app
-    .use(JwtUtils.verifyToken)
     .route('/api/products')
     .get(ProductController.getAll)
 
