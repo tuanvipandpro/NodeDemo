@@ -12,11 +12,15 @@ module.exports = {
     login: (req, res) => {
         const body = req.body
 
-        loginService.login(body.username, body.password).then(data => {
-            res.status(data.statusCode).json(data)
-        }).catch(err => {
-            if (err === null) res.status(403).json({message: 'Username or password is incorrect !!!'})
-            else res.status(500).json(err)
-        })
+        if (!body.username || !body.password) {
+            res.status(400).json({message: 'Bad Request !'})
+        } else {
+            loginService.login(body.username, body.password).then(data => {
+                res.status(data.statusCode).json(data)
+            }).catch(err => {
+                if (err === null) res.status(403).json({message: 'Username or password is incorrect !!!'})
+                else res.status(500).json(err)
+            })
+        }
     }
 }

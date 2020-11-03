@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
@@ -6,6 +6,6 @@ const db = mysql.createConnection({
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASS || "123456",
   database: process.env.DB_NAME || "nodedemo"
-});
+})
 
 module.exports = db

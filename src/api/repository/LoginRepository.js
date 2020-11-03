@@ -7,6 +7,7 @@ const db = require('./../db')
 module.exports = {
     /**
      * Get Account By Username
+     * @param username username
      */    
     getByUsername: (username) => {
         const sql = 'SELECT * ' + 

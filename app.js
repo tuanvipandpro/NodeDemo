@@ -1,8 +1,16 @@
+// Library
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const port = process.env.PORT || 3000
 const jwt = require('./src/api/utils/JwtUtils')
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocs = swaggerJsDoc(require('./swagger').getConfigSwagger())
+
+// Config For App
+require('dotenv').config() // .env
+const port = process.env.PORT || 3000 // port
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs)) // swagger
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -15,10 +23,10 @@ routes(app)
 
 // Default URL
 app.get('/', (req, res) => {
-	res.send('App is running at: ' + port);
+	res.send('<h2>App is running at: ' + port + '</h2>')
 });
 
 // Listen Port
 app.listen(port, () => {
-    console.log('RESTful API server started on: ' + port)
-});
+    console.log(`RESTful API server started on: ${port}`)
+})
