@@ -5,12 +5,18 @@ module.exports = {
     /**
      * Get all product
      */    
-    getAll: (req, res) => {
-        ProductService.getAll().then(data => {
-            res.status(200).json(data)
-        }).catch(err => {
-            res.status(500).json(err)
-        })
+    getAll: async (req, res) => {
+        try {
+            const rows = await ProductService.getAll()
+            if (!rows) res.status(404).json({message: 'Not Found'})
+            else {
+                res.status(200).json(rows)
+            }
+        }
+        catch(e) {
+            console.error(e)
+            res.status(500).json(e)
+        }
     },
 
     /**
