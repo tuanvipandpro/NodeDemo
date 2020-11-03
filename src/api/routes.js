@@ -6,66 +6,14 @@ const ProductController = require('./controller/ProductController')
 module.exports = function(app) {  
   // API
   app
-    .route('/api/products')
-  /**
-   * @swagger
-   * /api/products:
-   *  get:
-   *    summary: Get all products
-   *    responses:
-   *      '200':
-   *        description: Request Sucessfully !
-   *      '403':
-   *        description: Forbidden !!!
-   *      '500':
-   *        description: Internal Server Error !!!
-   */    
+    .route('/api/products')  
     .get(ProductController.getAll)
 
-  app.route('/api/products/:productId')
-  /**
-   * @swagger
-   * /api/products/{id}:
-   *  get:
-   *    summary: Get product by id
-   *    responses:
-   *      '200':
-   *        description: Request Sucessfully !
-   *      '403':
-   *        description: Forbidden !!!
-   *      '500':
-   *        description: Internal Server Error !!!
-   */     
-    .get(ProductController.getById)
-  /**
-   * @swagger
-   * /api/products/{id}:
-   *  put:
-   *    summary: Update product by id
-   *    responses:
-   *      '200':
-   *        description: Request Sucessfully !
-   *      '403':
-   *        description: Forbidden !!!
-   *      '500':
-   *        description: Internal Server Error !!!
-   */   
+  app.route('/api/products/:productId')    
+    .get(ProductController.getById) 
     .put(ProductController.updateById)
 
   // Auth
-  app.route('/auth/login')
-  /**
-   * @swagger
-   * /auth/login:
-   *  post:
-   *    summary: Login
-   *    responses:
-   *      '200':
-   *        description: Request Sucessfully !
-   *      '403':
-   *        description: Forbidden !!!
-   *      '500':
-   *        description: Internal Server Error !!!
-   */     
+  app.route('/auth/login')    
     .post(LoginController.login)
 }
