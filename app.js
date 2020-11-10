@@ -11,6 +11,7 @@ const swaggerDocs = swaggerJsDoc(require('./swagger').getConfigSwagger())
 require('dotenv').config() // .env
 const port = process.env.PORT || 3000 // port
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs)) // swagger
+app.use(express.static(__dirname + '/public'))
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -23,8 +24,9 @@ routes(app)
 
 // Default URL
 app.get('/', (req, res) => {
-	res.send('<h2>App is running at: ' + port + '</h2>')
-});
+    // res.send('<h2>App is running at: ' + port + '</h2>')
+    res.sendFile(__dirname + '\\public\\index.html')
+})
 
 // Listen Port
 app.listen(port, () => {
