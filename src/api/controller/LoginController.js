@@ -22,5 +22,12 @@ module.exports = {
                 else res.status(500).json(err)
             })
         }
+    },
+
+    loginGmail: async (req, res) => {
+        const idToken = req.body.idToken
+
+        if (await loginService.loginGmail(idToken)) res.status(200).json({message: 'Good'})
+        else res.status(500).json({message: 'Not Good'})
     }
 }

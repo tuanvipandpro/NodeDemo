@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const jwt = require('./src/api/utils/JwtUtils')
+const firebase = require('./src/api/utils/FirebaseUtils')
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocs = swaggerJsDoc(require('./swagger').getConfigSwagger())
@@ -12,6 +13,7 @@ require('dotenv').config() // .env
 const port = process.env.PORT || 3000 // port
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs)) // swagger
 app.use(express.static(__dirname + '/public'))
+app.use(firebase.createFirebaseAdmin)
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }))

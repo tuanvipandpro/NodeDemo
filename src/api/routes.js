@@ -16,4 +16,7 @@ module.exports = function(app) {
   // Auth
   app.route('/auth/login')    
     .post(LoginController.login)
+
+  app.route('/auth/login-gmail')    
+    .post(LoginController.loginGmail)
 }

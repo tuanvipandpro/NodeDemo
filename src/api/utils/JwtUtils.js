@@ -6,7 +6,7 @@ const ACCESS_TOKEN_LIFE = '100h'
 const ACCESS_TOKEN_SECRET = 'JLUgkGLgGI56df626ghT4+9lbjLggLjf5+49zXCV9a'
 
 // Constant
-const NO_AUTH_URL = ['/auth/login', '/']
+const NO_AUTH_URL = ['/auth/login', '/', '/auth/login-gmail']
 
 module.exports = {
     /**

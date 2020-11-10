@@ -24,5 +24,21 @@ module.exports = {
             })
         })
         // End  
-    }
+    },
+    getByEmail: (email) => {
+        const sql = 'SELECT * ' + 
+                    'FROM account ' + 
+                    'WHERE email = ? '
+        return new Promise((resolve, reject) => {
+            db.query(sql, email, (error, response) => {
+                if (error || response.length === 0) {
+                    reject(error)
+                }
+                else {
+                    resolve(response)
+                }
+            })
+        })
+        // End  
+    }    
 }

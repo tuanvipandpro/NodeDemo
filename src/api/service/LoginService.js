@@ -1,6 +1,7 @@
 'use strict'
 const bcrypt = require('bcrypt')
 const jwtUtils = require('./../utils/JwtUtils')
+const firebaseUtils = require('./../utils/FirebaseUtils')
 const loginRepository = require('./../repository/LoginRepository')
 
 module.exports = {
@@ -29,5 +30,12 @@ module.exports = {
                 reject(err)
             })
         })
+    },
+
+    loginGmail: async (idToken) => {
+        // console.log(idToken)
+        const isValid = await firebaseUtils.validateIdToken(idToken)
+        console.log(isValid)
+        return isValid
     }
 }
