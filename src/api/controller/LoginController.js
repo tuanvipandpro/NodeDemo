@@ -1,4 +1,3 @@
-'use strict'
 const loginService = require('./../service/LoginService')
 
 module.exports = {
@@ -23,11 +22,23 @@ module.exports = {
             })
         }
     },
-
+    /**
+     * Login by Gmail
+     * @param idToken
+     * @param Gmail
+     * @returns access_token
+     * @returns profile
+     */  
     loginGmail: async (req, res) => {
         const idToken = req.body.idToken
-
-        if (await loginService.loginGmail(idToken)) res.status(200).json({message: 'Good'})
-        else res.status(500).json({message: 'Not Good'})
+        try{
+            const response = await loginService.loginGmail(idToken)
+            response.user.password = undefined
+            res.status(response.statusCode).json(response)
+        }
+        catch (e) {
+            console.error(e)
+            res.status(500).json({message: 'Error'})
+        }
     }
 }

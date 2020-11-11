@@ -1,5 +1,6 @@
 'use strict'
 const jwt = require('jsonwebtoken')
+const logger = require('../utils/LoggerUtils')
 
 // JWT Credentials
 const ACCESS_TOKEN_LIFE = '100h'
@@ -29,6 +30,7 @@ module.exports = {
      * @param next
      */  
     verifyToken: (req, res, next) => {
+        logger.info(req.originalUrl)
         if (NO_AUTH_URL.includes(req.originalUrl)) return next()
         else {           
             try {
